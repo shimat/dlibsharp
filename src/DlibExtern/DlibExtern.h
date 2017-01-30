@@ -15,7 +15,7 @@
 #define EXTERN_API extern "C" __declspec(dllimport)
 #endif
 
-using uchar = char;
+using uchar = unsigned char;
 
 using ErrorCallback = void(*)(const char*);
 static ErrorCallback g_ErrorCallback;

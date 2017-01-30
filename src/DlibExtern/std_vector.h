@@ -14,15 +14,15 @@ EXTERN_API std::vector<Rect> *vector_Rect_new2(size_t size)
 {
     return new std::vector<Rect>(size);
 }
-EXTERN_API std::vector<Rect> *vector_Rect_new3(Rect* data, size_t dataLength)
+EXTERN_API std::vector<Rect> *vector_Rect_new3(Rect *data, size_t dataLength)
 {
     return new std::vector<Rect>(data, data + dataLength);
 }
-EXTERN_API size_t vector_Rect_getSize(std::vector<Rect>* vector)
+EXTERN_API size_t vector_Rect_getSize(std::vector<Rect> *vector)
 {
     return vector->size();
 }
-EXTERN_API Rect* vector_Rect_getPointer(std::vector<Rect> *vector)
+EXTERN_API Rect *vector_Rect_getPointer(std::vector<Rect> *vector)
 {
     return &(vector->at(0));
 }
