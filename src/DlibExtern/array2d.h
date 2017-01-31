@@ -27,6 +27,19 @@ EXTERN_API void dlib_load_image_array2d_uchar(dlib::array2d<uchar> *obj, const c
     }
 }
 
+EXTERN_API void dlib_load_bmp_array2d_uchar(dlib::array2d<uchar> *obj, const char *buffer, size_t buffer_length)
+{
+    try
+    { 
+        std::istringstream stream(std::string(buffer, buffer + buffer_length));
+        dlib::load_bmp(*obj, stream);
+    }
+    catch (dlib::error &e)
+    {
+        if (g_ErrorCallback) g_ErrorCallback(e.what());
+    }
+}
+
 EXTERN_API void dlib_pyramid_up_array2d_uchar(dlib::array2d<uchar> *obj)
 {
     try

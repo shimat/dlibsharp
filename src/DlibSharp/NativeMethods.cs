@@ -40,6 +40,9 @@ namespace DlibSharp
         public static extern void dlib_load_image_array2d_uchar(IntPtr obj, string file_name);
 
         [DllImport(Dll, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void dlib_load_bmp_array2d_uchar(IntPtr obj, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, IntPtr buffer_length);
+
+        [DllImport(Dll, CallingConvention = CallingConvention.Cdecl)]
         public static extern void dlib_pyramid_up_array2d_uchar(IntPtr obj);
 
 

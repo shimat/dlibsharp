@@ -70,5 +70,45 @@ namespace DlibSharp.Tests
                     NativeMethods.vector_Rect_delete(dets);
             }
         }
+
+        [Test]
+        public void RawApiSimpleDetectionUsingMemoryInput()
+        {
+            const string imagePath = "images\\lenna.bmp";
+            var imageBytes = File.ReadAllBytes(imagePath);
+
+            IntPtr detector = IntPtr.Zero;
+            IntPtr image = IntPtr.Zero;
+            IntPtr dets = IntPtr.Zero;
+            try
+            {
+                detector = NativeMethods.dlib_get_frontal_face_detector();
+                image = NativeMethods.dlib_array2d_uchar_new();
+
+                NativeMethods.dlib_load_bmp_array2d_uchar(image, imageBytes, new IntPtr(imageBytes.Length));
+                NativeMethods.dlib_pyramid_up_array2d_uchar(image);
+
+                dets = NativeMethods.vector_Rect_new1();
+                NativeMethods.dlib_frontal_face_detector_operator(detector, image, 0, dets);
+                unsafe
+                {
+                    Rect* rectangles = (Rect*)NativeMethods.vector_Rect_getPointer(dets).ToPointer();
+                    long count = NativeMethods.vector_Rect_getSize(dets).ToInt64();
+                    for (int i = 0; i < count; i++)
+                    {
+                        Console.WriteLine(rectangles[i]);
+                    }
+                }
+            }
+            finally
+            {
+                if (image != IntPtr.Zero)
+                    NativeMethods.dlib_array2d_uchar_delete(image);
+                if (detector != IntPtr.Zero)
+                    NativeMethods.dlib_frontal_face_detector_delete(detector);
+                if (dets != IntPtr.Zero)
+                    NativeMethods.vector_Rect_delete(dets);
+            }
+        }
     }
 }
